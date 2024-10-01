@@ -6,25 +6,28 @@ class Kartya{
         this.lista=lista;
         this.szuloElem=szuloElem;
         this.htmlOsszerak();
-        this.sajatEsemeny();    
-        console.log("3")    
+        this.sajatEsemeny();     
     }
 
     htmlOsszerak(){
-        this.lista.forEach(elem => {
-            this.szuloElem.append(
-                `
-                <div class="kartya">${elem}</div>
-                `
-            )
-        });
+        let txt = "";
+        for (let i = 0; i < this.lista.length; i++) {
+            txt += `<div class="kartya" id="${i}"></div>`;  
+        }
+        this.szuloElem.append(txt)
+    }
+    
+    szimbolumKirajzol(index, szimbolum){
+        let kartya = $(`#${index}`);
+        kartya.append(szimbolum)
     }
 
     sajatEsemeny(){
         const kartyak=$('.kartya');
         kartyak.on("click", (event)=>{
-            const kattintott = $(event.currentTarget).text();
-            const myEvent = new CustomEvent("kattint", {detail: { event: kattintott }});
+            const kattintott = $(event.currentTarget).attr('id');
+            const kattintottSzimbolum = this.lista[kattintott];
+            const myEvent = new CustomEvent("kattint", {detail: { event: kattintottSzimbolum }});
             window.dispatchEvent(myEvent);
         })
     }

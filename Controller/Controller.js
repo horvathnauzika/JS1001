@@ -4,14 +4,19 @@ import Kartya from "../View/Kartya.js";
 class Controller{
     lista=[]
     #modell
+    #kartya
     constructor(){
         this.#modell=new Modell()
         this.lista=this.#modell.getLista();
-        new Kartya(this.lista, $('.kartyaElemek'));
-        $(window).on("kattint", ()=>{
-            new Kartya(this.lista, $('.kartyaElemek'));
+        this.#kartya = new Kartya(this.lista, $('.kartyaElemek'));
+        this.kattintEvent();
+    }
+
+    kattintEvent(){
+        $(window).on("kattint", (event)=>{
+            const szimbolum = event.detail;
+            this.#kartya.szimbolumKirajzol(this.lista.indexOf(szimbolum), szimbolum);
         })
-        console.log("hello2")
     }
 }
 export default Controller;

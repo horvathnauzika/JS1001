@@ -1,3 +1,12 @@
 .kartya{
     border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.kartyaElemek{
+    display: grid;
+    grid-template-columns: repeat(5, 51px);
+    grid-template-rows: repeat(5, 51px);
 }
