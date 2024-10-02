@@ -1,21 +1,24 @@
 import Modell from "../Modell/Modell.js";
-import Kartya from "../View/Kartya.js";
+import Jatekter from "../View/Jatekter.js";
 
 class Controller{
-    lista=[]
     #modell
-    #kartya
+    #jatekter
     constructor(){
         this.#modell=new Modell()
-        this.lista=this.#modell.getLista();
-        this.#kartya = new Kartya(this.lista, $('.kartyaElemek'));
         this.kattintEvent();
+        this.#jatekter=new Jatekter($('.kartyaElemek'), this.#modell.getLista().length);
+        
     }
 
     kattintEvent(){
         $(window).on("kattint", (event)=>{
-            const szimbolum = event.detail;
-            this.#kartya.szimbolumKirajzol(this.lista.indexOf(szimbolum), szimbolum);
+            const kartya=event.detail.kartya;
+            console.log(kartya)
+            const index=kartya.getIndex();
+            const szimbolum=this.#modell.getLista()[index];
+            kartya.szimbolumKirajzol(kartya.getIndex(), szimbolum)
+            
         })
     }
 }

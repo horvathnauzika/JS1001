@@ -1,35 +1,35 @@
 class Kartya{
 
-    lista = []
-
-    constructor(lista, szuloElem){
-        this.lista=lista;
+    constructor(index, szuloElem){
+        this.index=index;
         this.szuloElem=szuloElem;
-        this.htmlOsszerak();
-        this.sajatEsemeny();     
+        this.htmlAlap();
+        this.sajatEsemeny(); 
+        this.getIndex();    
     }
 
-    htmlOsszerak(){
+    htmlAlap(){
         let txt = "";
-        for (let i = 0; i < this.lista.length; i++) {
-            txt += `<div class="kartya" id="${i}"></div>`;  
-        }
+        txt += `<div class="kartya" id="${this.index}"></div>`; 
         this.szuloElem.append(txt)
     }
     
     szimbolumKirajzol(index, szimbolum){
         let kartya = $(`#${index}`);
+        kartya.empty();
         kartya.append(szimbolum)
     }
 
     sajatEsemeny(){
-        const kartyak=$('.kartya');
-        kartyak.on("click", (event)=>{
-            const kattintott = $(event.currentTarget).attr('id');
-            const kattintottSzimbolum = this.lista[kattintott];
-            const myEvent = new CustomEvent("kattint", {detail: { event: kattintottSzimbolum }});
+        const kartyak=$('.kartya:last-child');
+        kartyak.on("click", ()=>{
+            const myEvent = new CustomEvent("kattint", {detail: { kartya: this } });
             window.dispatchEvent(myEvent);
         })
+    }
+
+    getIndex(){
+        return this.index;
     }
 
 }
