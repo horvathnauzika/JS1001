@@ -14,7 +14,6 @@ class Controller{
     kattintEvent(){
         $(window).on("kattint", (event)=>{
             const kartya=event.detail.kartya;
-            console.log(kartya)
             const index=kartya.getIndex();
             const szimbolum=this.#modell.getLista()[index];
             kartya.szimbolumKirajzol(kartya.getIndex(), szimbolum)
@@ -23,3 +22,4 @@ class Controller{
     }
 }
 export default Controller;
+
